@@ -3,7 +3,7 @@
 Kiat dan trik Laravel yang luar biasa untuk semua artisans dalam Bahasa Indonesia. PR and ideas are welcome!  
 Sebuah ide dari [PovilasKorop](https://github.com/PovilasKorop) dan [MarceauKa](https://github.com/MarceauKa).
 
-__Update 06 Oct 2020__: Currently there are __114 tips__ divided into 14 sections.
+__Update 06 Oct 2020__: Saat ini ada __114 tips__ yang dibagi menjadi 14 bagian.
 
 ## Table of Contents
 
@@ -59,7 +59,7 @@ __Update 06 Oct 2020__: Currently there are __114 tips__ divided into 14 section
 
 ### Eloquent where date methods
 
-In Eloquent, check the date with functions `whereDay()`, `whereMonth()`, `whereYear()`, `whereDate()` and `whereTime()`.
+Pada Eloquent, periksa tanggal dengan fungsi `whereDay()`, `whereMonth()`, `whereYear()`, `whereDate()` dan `whereTime()`.
 
 ```php
 $products = Product::whereDate('created_at', '2018-01-31')->get();
@@ -71,7 +71,7 @@ $products = Product::whereTime('created_at', '=', '14:13:58')->get();
 
 ### Increments and decrements
 
-If you want to increment some DB column in some table, just use `increment()` function. Oh, and you can increment not only by 1, but also by some number, like 50.
+ika Anda ingin menambahkan beberapa kolom DB dalam beberapa tabel, cukup gunakan fungsi `increment()`. Anda dapat tidak hanya dengan increment 1, tetapi juga dengan beberapa angka, seperti 50.
 
 ```php
 Post::find($post_id)->increment('view_count');
@@ -80,7 +80,7 @@ User::find($user_id)->increment('points', 50);
 
 ### No timestamp columns
 
-If your DB table doesn't contain timestamp fields `created_at` and `updated_at`, you can specify that Eloquent model wouldn't use them, with `$timestamps = false` property.
+Jika tabel DB Anda tidak berisi timestamp field `created_at` dan `updated_at`, Anda dapat menentukan bahwa Eloquent model tidak akan menggunakannya, gunakanlah `$timestamps = false` property.
 
 ```php
 class Company extends Model
@@ -91,7 +91,7 @@ class Company extends Model
 
 ### Set logged in user with Observers
 
-Use `make:observer` and fill in `creating()` method to automatically set up `user_id` field for current logged in user.
+Gunakan `make:observer` dan isi `creating()` method untuk menyiapkan `user_id` field secara otomatis untuk pengguna yang masuk saat ini.
 
 ```php
 class PostObserver
@@ -105,7 +105,7 @@ class PostObserver
 
 ### Soft-deletes: multiple restore
 
-When using soft-deletes, you can restore multiple rows in one sentence.
+Saat menggunakan soft-deletes, Anda dapat memulihkan beberapa baris dalam satu kalimat.
 
 ```php
 Post::withTrashed()->where('author_id', 1)->restore();
@@ -113,7 +113,7 @@ Post::withTrashed()->where('author_id', 1)->restore();
 
 ### Model all: columns
 
-When calling Eloquent's `Model::all()`, you can specify which columns to return.
+Saat memanggil Eloquent's `Model::all()`, Anda dapat menentukan kolom mana yang akan dikembalikan.
 
 ```php
 $users = User::all(['id', 'name', 'email']);
@@ -121,7 +121,7 @@ $users = User::all(['id', 'name', 'email']);
 
 ### To Fail or not to Fail
 
-In addition to `findOrFail()`, there's also Eloquent method `firstOrFail()` which will return 404 page if no records for query are found.
+Selain `findOrFail()`, ada juga metode Eloquent `firstOrFail()` yang akan mengembalikan halaman 404 jika tidak ada record untuk kueri yang ditemukan.
 
 ```php
 $user = User::where('email', 'povilas@laraveldaily.com')->firstOrFail();
@@ -129,7 +129,7 @@ $user = User::where('email', 'povilas@laraveldaily.com')->firstOrFail();
 
 ### Column name change
 
-In Eloquent Query Builder, you can specify "as" to return any column with a different name, just like in plain SQL query.
+Di Eloquent Query Builder, Anda dapat menentukan "as" untuk mengembalikan kolom apa pun dengan nama yang berbeda, seperti dalam kueri SQL biasa.
 
 ```php
 $users = DB::table('users')->select('name', 'email as user_email')->get();
@@ -137,7 +137,7 @@ $users = DB::table('users')->select('name', 'email as user_email')->get();
 
 ### Map query results
 
-After Eloquent query you can modify rows by using `map()` function in Collections.
+Setelah Eloquent query, Anda bisa mengubah baris dengan menggunakan fungsi `map()` pada _Collections_.
 
 ```php
 $users = User::where('role_id', 1)->get()->map(function (User $user) {
@@ -148,7 +148,7 @@ $users = User::where('role_id', 1)->get()->map(function (User $user) {
 
 ### Change Default Timestamp Fields
 
-What if you’re working with non-Laravel database and your timestamp columns are named differently? Maybe, you have create_time and update_time. Luckily, you can specify them in the model, too:
+Bagaimana jika Anda bekerja dengan database non-Laravel dan kolom timestamp Anda dinamai berbeda? Mungkin, Anda memiliki `create_time` dan `update_time`. Untungnya, Anda juga dapat menentukannya di dalam model:
 
 ```php
 class Role extends Model
@@ -160,24 +160,24 @@ class Role extends Model
 
 ### Quick Order by created_at
 
-Instead of:
+Daripada:
 ```php
 User::orderBy('created_at', 'desc')->get();
 ```
 
-You can do it quicker:
+Anda dapat menulisnya jadi lebih pendek:
 ```php
 User::latest()->get();
 ```
 
-By default, `latest()` will order by `created_at`.
+By default, `latest()` akan memanggil `created_at`.
 
-There is an opposite method `oldest()` which would order by `created_at` ascending:
+Ada metode `oldest()` yang berlawanan yang akan memesan `created_at` secara ascending:
 ```php
 User::oldest()->get();
 ```
 
-Also, you can specify another column to order by. For example, if you want to use `updated_at`, you can do this:
+Selain itu, Anda dapat menentukan kolom lain untuk dipesan. Misalnya, jika Anda ingin menggunakan `updated_at`, Anda dapat melakukan ini:
 ```php
 $lastUpdatedUser = User::latest('updated_at')->first();
 ```
