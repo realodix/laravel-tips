@@ -1,7 +1,7 @@
 # Laravel Tips
 
-Awesome Laravel tips and tricks for all artisans. PR and ideas are welcome!  
-An idea by [PovilasKorop](https://github.com/PovilasKorop) and [MarceauKa](https://github.com/MarceauKa).
+Kiat dan trik Laravel yang luar biasa untuk semua artisans dalam Bahasa Indonesia. PR and ideas are welcome!  
+Sebuah ide dari [PovilasKorop](https://github.com/PovilasKorop) dan [MarceauKa](https://github.com/MarceauKa).
 
 __Update 06 Oct 2020__: Currently there are __114 tips__ divided into 14 sections.
 
