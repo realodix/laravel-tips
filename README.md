@@ -438,31 +438,40 @@ class Post extends Model
 
 Tip given by [@syofyanzuhad](https://github.com/syofyanzuhad)
 
-To change the format of `created_at` you can add a method in your model like this:
+<!-- To change the format of `created_at` you can add a method in your model like this: -->
+Untuk mengubah format `create_at` Anda dapat menambahkan metode dalam model Anda seperti ini:
 ```
 public function getCreatedAtFormattedAttribute()
 {
    return $this->created_at->format('H:i d, M Y');
 }
 ```
-So you can use it `$entry->created_at_formatted` when it's needed.
+<!-- So you can use it `$entry->created_at_formatted` when it's needed.
 It will return the `created_at` attribute like this: `04:19 23, Aug 2020`.
 
-And also for changing format of `updated_at` attribute, you can add this method :
+And also for changing format of `updated_at` attribute, you can add this method : -->
+Jadi, Anda dapat menggunakan `$entry->created_at_formatted` jika diperlukan.
+Ini akan mengembalikan atribut `create_at` seperti ini: `04:19 23, Aug 2020`.
+
+Dan juga untuk mengubah format atribut `updated_at`, Anda dapat menambahkan metode ini:
+
 ```
 public function getUpdatedAtFormattedAttribute()
 {
    return $this->updated_at->format('H:i d, M Y');
 }
 ```
-So you can use it `$entry->updated_at_formatted` when it's needed.
-It will return the `updated_at` attribute like this: `04:19 23, Aug 2020`.
+
+<!-- So you can use it `$entry->updated_at_formatted` when it's needed.
+It will return the `updated_at` attribute like this: `04:19 23, Aug 2020`. -->
+Ini akan mengembalikan atribut `updated_at` seperti ini: `04:19 23, Aug 2020`. h
 
 ### Storing Array Type into JSON
 
 Tip given by [@pratiksh404](https://github.com/pratiksh404)
 
-If you have input field which takes an array and you have to store it as a JSON, you can use `$casts` property in your model. Here `images` is a JSON attribute.
+<!-- If you have input field which takes an array and you have to store it as a JSON, you can use `$casts` property in your model. Here `images` is a JSON attribute. -->
+Jika Anda memiliki kolom input yang mengambil sebuah array dan Anda harus menyimpannya sebagai JSON, Anda dapat menggunakan properti `$casts` dalam model Anda. Di sini `images` adalah atribut JSON.
 
 ```
 protected $casts = [
@@ -470,7 +479,8 @@ protected $casts = [
 ];
 ```
 
-So you can store it as a JSON, but when retrieved from DB, it can be used as an array.
+<!-- So you can store it as a JSON, but when retrieved from DB, it can be used as an array. -->
+Jadi Anda bisa menyimpannya sebagai JSON, tetapi saat diambil dari DB, dapat digunakan sebagai array.
 
 
 ## Models Relations
