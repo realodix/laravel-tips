@@ -440,12 +440,14 @@ Tip given by [@syofyanzuhad](https://github.com/syofyanzuhad)
 
 <!-- To change the format of `created_at` you can add a method in your model like this: -->
 Untuk mengubah format `create_at` Anda dapat menambahkan metode dalam model Anda seperti ini:
+
 ```
 public function getCreatedAtFormattedAttribute()
 {
    return $this->created_at->format('H:i d, M Y');
 }
 ```
+
 <!-- So you can use it `$entry->created_at_formatted` when it's needed.
 It will return the `created_at` attribute like this: `04:19 23, Aug 2020`.
 
@@ -512,7 +514,8 @@ Jadi Anda bisa menyimpannya sebagai JSON, tetapi saat diambil dari DB, dapat dig
 
 ### OrderBy on Eloquent relationships
 
-You can specify orderBy() directly on your Eloquent relationships.
+<!-- You can specify orderBy() directly on your Eloquent relationships. -->
+Anda bisa menentukan `orderBy()` langsung pada Eloquent relationships Anda.
 
 ```php
 public function products()
@@ -528,7 +531,8 @@ public function productsByName()
 
 ### Conditional relationships
 
-If you notice that you use same relationship often with additional "where" condition, you can create a separate relationship method.
+<!-- If you notice that you use same relationship often with additional "where" condition, you can create a separate relationship method. -->
+Jika Anda memperhatikan bahwa Anda sering menggunakan relationship yang sama dengan kondisi "`where`" tambahan, Anda dapat membuat metode relationship terpisah.
 
 Model:
 ```php
@@ -545,7 +549,8 @@ public function approved_comments()
 
 ### Raw DB Queries: havingRaw()
 
-You can use RAW DB queries in various places, including `havingRaw()` function after `groupBy()`.
+<!-- You can use RAW DB queries in various places, including `havingRaw()` function after `groupBy()`. -->
+Anda bisa menggunakan RAW DB queries di berbagai tempat, termasuk `havingRaw()` function setelah `groupBy()`.
 
 ```php
 Product::groupBy('category_id')->havingRaw('COUNT(*) > 1')->get();
@@ -553,7 +558,8 @@ Product::groupBy('category_id')->havingRaw('COUNT(*) > 1')->get();
 
 ### Eloquent has() deeper
 
-You can use Eloquent `has()` function to query relationships even two layers deep!
+<!-- You can use Eloquent `has()` function to query relationships even two layers deep! -->
+Anda dapat menggunakan Eloquent `has()` function dalam dua layer sekaligus!
 
 ```php
 // Author -> hasMany(Book::class);
@@ -563,7 +569,8 @@ $authors = Author::has('books.ratings')->get();
 
 ### Has Many. How many exactly?
 
-In Eloquent `hasMany()` relationships, you can filter out records that have X amount of children records.
+<!-- In Eloquent `hasMany()` relationships, you can filter out records that have X amount of children records. -->
+Dalam Eloquent `hasMany()` relationships, Anda bisa memfilter record yang memiliki X jumlah children record.
 
 ```php
 // Author -> hasMany(Book::class)
@@ -572,7 +579,8 @@ $authors = Author::has('books', '>', 5)->get();
 
 ### Default model
 
-You can assign a default model in `belongsTo` relationship, to avoid fatal errors when calling it like `{{ $post->user->name }}` if $post->user doesn't exist.
+<!-- You can assign a default model in `belongsTo` relationship, to avoid fatal errors when calling it like `{{ $post->user->name }}` if $post->user doesn't exist. -->
+Anda dapat menetapkan model default dalam `belongsTo` relationship, untuk menghindari kesalahan fatal saat memanggilnya seperti `{{ $post->user->name }}` jika `$post->user` tidak ditemukan.
 
 ```php
 public function user()
@@ -583,7 +591,8 @@ public function user()
 
 ### Use hasMany to create Many
 
-If you have `hasMany()` relationship, you can use `saveMany()` to save multiple "child" entries from your "parent" object, all in one sentence.
+<!-- If you have `hasMany()` relationship, you can use `saveMany()` to save multiple "child" entries from your "parent" object, all in one sentence. -->
+Jika Anda memiliki `hasMany()` relationship, Anda bisa menggunakan `saveMany()` untuk menyimpan beberapa entri "child" dari objek "parent" Anda, semuanya dapat dilakukan dalam satu kalimat.
 
 ```php
 $post = Post::find(1);
@@ -595,19 +604,24 @@ $post->comments()->saveMany([
 
 ### Eager Loading with Exact Columns
 
-You can do Laravel Eager Loading and specify the exact columns you want to get from the relationship.
+<!-- You can do Laravel Eager Loading and specify the exact columns you want to get from the relationship. -->
+Anda dapat menggunakan Laravel Eager Loading dan menentukan kolom yang ingin Anda dapatkan dari relationship tersebut.
+
 ```php
 $users = App\Book::with('author:id,name')->get();
 ```
 
-You can do that even in deeper, second level relationships:
+<!-- You can do that even in deeper, second level relationships: -->
+Anda dapat melakukannya lebih dalam, bahkan pada second level relationships:
+
 ```php
 $users = App\Book::with('author.country:id,name')->get();
 ```
 
 ### Touch parent updated_at easily
 
-If you are updating a record and want to update the `updated_at` column of parent relationship (like, you add new post comment and want `posts.updated_at` to renew), just use `$touches = ['post'];` property on child model.
+<!-- If you are updating a record and want to update the `updated_at` column of parent relationship (like, you add new post comment and want `posts.updated_at` to renew), just use `$touches = ['post'];` property on child model. -->
+Jika Anda memperbarui record dan ingin memperbarui kolom `updated_at` dari parent relationship (seperti, Anda menambahkan komentar posting baru dan ingin `posts.updated_at` diperbarui), cukup gunakan properti `$touches = ['post'];` pada child model.
 
 ```php
 class Comment extends Model
@@ -618,14 +632,19 @@ class Comment extends Model
 
 ### Always Check if Relationship Exists
 
-Never **ever** do `$model->relationship->field` without checking if relationship object still exists.
+<!-- Never **ever** do `$model->relationship->field` without checking if relationship object still exists.
 
 It may be deleted for whatever reason, outside your code, by someone else's queued job etc.
-Do `if-else`, or `{{ $model->relationship->field ?? '' }}` in Blade, or `{{ optional($model->relationship)->field }}`.
+Do `if-else`, or `{{ $model->relationship->field ?? '' }}` in Blade, or `{{ optional($model->relationship)->field }}`. -->
+**Jangan pernah** menggunakan `$model->relationship->field` tanpa memeriksa apakah objek relationship masih ada.
+
+Ini dapat dihapus karena alasan apa pun, di luar kode Anda, oleh queued job orang lain, dll.
+Gunakan `if-else`, atau `{{ $model->relationship->field ?? '' }}` pada Blade, atau `{{ optional($model->relationship)->field }}`.
 
 ### Use withCount() to Calculate Child Relationships Records
 
-If you have `hasMany()` relationship, and you want to calculate “children” entries, don’t write a special query. For example, if you have posts and comments on your User model, write this `withCount()`:
+<!-- If you have `hasMany()` relationship, and you want to calculate “children” entries, don’t write a special query. For example, if you have posts and comments on your User model, write this `withCount()`: -->
+Jika Anda memiliki `hasMany()` relationship, dan ingin menghitung “children” entrie, jangan gunakan special query. Misalnya, jika Anda memiliki posting dan komentar tentang model Pengguna Anda, maka gunakanlah `withCount()`:
 
 ```php
 public function index()
@@ -635,7 +654,8 @@ public function index()
 }
 ```
 
-And then, in your Blade file, you will access those number with `{relationship}_count` properties:
+<!-- And then, in your Blade file, you will access those number with `{relationship}_count` properties: -->
+Dan kemudian, di file Blade Anda, Anda akan mengakses nomor tersebut dengan properti `{relationship}_count`:
 
 ```blade
 @foreach ($users as $user)
@@ -647,7 +667,8 @@ And then, in your Blade file, you will access those number with `{relationship}_
 @endforeach
 ```
 
-You may also order by that field:
+<!-- You may also order by that field: -->
+Anda juga dapat order berdasarkan field itu:
 
 ```php
 User::withCount('comments')->orderBy('comments_count', 'desc')->get(); 
@@ -655,7 +676,8 @@ User::withCount('comments')->orderBy('comments_count', 'desc')->get();
 
 ### Extra Filter Query on Relationships
 
-If you want to load relationship data, you can specify some limitations or ordering in a closure function. For example, if you want to get Countries with only three of their biggest cities, here's the code.
+<!-- If you want to load relationship data, you can specify some limitations or ordering in a closure function. For example, if you want to get Countries with only three of their biggest cities, here's the code. -->
+Jika Anda ingin memuat data relationship, Anda dapat menentukan beberapa batasan atau urutan dalam closure function. Misalnya, jika Anda ingin mendapatkan Negara dengan hanya tiga kota terbesarnya, berikut kodenya.
 
 ```php
 $countries = Country::with(['cities' => function($query) {
@@ -666,7 +688,8 @@ $countries = Country::with(['cities' => function($query) {
 
 ### Load Relationships Always, but Dynamically
 
-You can not only specify what relationships to ALWAYS load with the model, but you can do it dynamically, in the constructor method:
+<!-- You can not only specify what relationships to ALWAYS load with the model, but you can do it dynamically, in the constructor method: -->
+Anda tidak hanya dapat menentukan relationships apa yang SELALU dimuat dengan model, tetapi Anda dapat melakukannya secara dinamis, dalam metode constructor:
 
 ```php
 class ProductTag extends Model
@@ -686,7 +709,8 @@ class ProductTag extends Model
 
 ### Instead of belongsTo, use hasMany
 
-For `belongsTo` relationship, instead of passing parent's ID when creating child record, use `hasMany` relationship to make a shorter sentence.
+<!-- For `belongsTo` relationship, instead of passing parent's ID when creating child record, use `hasMany` relationship to make a shorter sentence. -->
+Untuk `belongsTo` relationship, alih-alih meneruskan ID induk saat membuat child record, gunakan `hasMany` relationship untuk membuat kalimat yang lebih pendek.
 
 ```php
 // if Post -> belongsTo(User), and User -> hasMany(Post)...
@@ -706,7 +730,8 @@ auth()->user()->posts()->create([
 
 ### Rename Pivot Table
 
-If you want to rename "pivot" word and call your relationship something else, you just use `->as('name')` in your relationship.
+<!-- If you want to rename "pivot" word and call your relationship something else, you just use `->as('name')` in your relationship. -->
+Jika Anda ingin mengganti nama kata "pivot" dan memanggil relationship dengan nama lain, Anda cukup menggunakan `->as('name')` dalam relationship Anda.
 
 Model:
 ```php
@@ -728,7 +753,8 @@ foreach ($podcasts as $podcast) {
 
 ### Update Parent in One Line
 
-If you have a `belongsTo()` relationship, you can update the Eloquent relationship data in the same sentence:
+<!-- If you have a `belongsTo()` relationship, you can update the Eloquent relationship data in the same sentence: -->
+Jika Anda memiliki `belongsTo()` relationship, Anda dapat memperbarui data Eloquent relationship dalam cara yang sama:
 
 ```php
 // if Project -> belongsTo(User::class)
@@ -737,7 +763,8 @@ $project->user->update(['email' => 'some@gmail.com']);
 
 ### Laravel 7+ Foreign Keys
 
-From Laravel 7, in migrations you don't need to write two lines for relationship field - one for the field and one for foreign key. Use method `foreignId()`.
+<!-- From Laravel 7, in migrations you don't need to write two lines for relationship field - one for the field and one for foreign key. Use method `foreignId()`. -->
+Sejak Laravel 7, dalam migrasi Anda tidak perlu menulis dua baris untuk relationship field - satu untuk bidang dan satu untuk kunci asing. Gunakan metode `foreignId()`.
 
 ```php
 // Before Laravel 7
@@ -759,7 +786,8 @@ Schema::table('posts', function (Blueprint $table)) {
 
 ### Combine Two "whereHas"
 
-In Eloquent, you can combine `whereHas()` and `orDoesntHave()` in one sentence.
+<!-- In Eloquent, you can combine `whereHas()` and `orDoesntHave()` in one sentence. -->
+Di Eloquent, Anda dapat menggabungkan `whereHas()` dan `orDoesntHave()` dalam satu kalimat.
 
 ```php
 User::whereHas('roles', function($query) {
@@ -771,7 +799,8 @@ User::whereHas('roles', function($query) {
 
 ### Check if Relationship Method Exists
 
-If your Eloquent relationship names are dynamic and you need to check if relationship with such name exists on the object, use PHP function `method_exists($object, $methodName)`
+<!-- If your Eloquent relationship names are dynamic and you need to check if relationship with such name exists on the object, use PHP function `method_exists($object, $methodName)`. -->
+Jika nama Eloquent relationship Anda dinamis dan Anda perlu memeriksa apakah relasi dengan nama tersebut ada pada objek, gunakan fungsi PHP `method_exists($object, $methodName)`.
 
 ```php
 $user = User::first();
@@ -782,15 +811,19 @@ if (method_exists($user, 'roles')) {
 
 ### Pivot Table with Extra Relations
 
-In many-to-many relationship, your pivot table may contain extra fields, and even extra relationships to other Model. 
+<!-- In many-to-many relationship, your pivot table may contain extra fields, and even extra relationships to other Model. 
 
-Then generate a separate Pivot Model:
+Then generate a separate Pivot Model: -->
+Dalam many-to-many relationship, tabel pivot Anda mungkin berisi bidang ekstra, dan bahkan hubungan ekstra ke Model lain.
+
+Kemudian buat Model Pivot terpisah:
 
 ```
 php artisan make:model RoleUser --pivot
 ```
 
-Next, specify it in `belongsToMany()` with `->using()` method. Then you could do magic, like in the example.﻿
+<!-- Next, specify it in `belongsToMany()` with `->using()` method. Then you could do magic, like in the example. -->
+Selanjutnya, tentukan dalam metode `belongsToMany()` dengan `->using()`. Kemudian Anda bisa menerapkan magic, seperti pada contoh di bawah ini:
 
 ```php
 // in app/Models/User.php
@@ -818,7 +851,8 @@ $firstTeam = auth()->user()->roles()->first()->pivot->team->name;
 
 ### Load Count on-the-fly
 
-In addition to Eloquent's `withCount()` method to count related records, you can also load the count on-the-fly, with `loadCount()`:
+<!-- In addition to Eloquent's `withCount()` method to count related records, you can also load the count on-the-fly, with `loadCount()`: -->
+Selain metode Eloquent `withCount()` untuk menghitung record terkait, Anda juga bisa memuat count on-the-fly, dengan `loadCount()`:
 
 ```php
 // if your Book hasMany Reviews...
