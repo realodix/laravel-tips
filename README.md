@@ -59,7 +59,7 @@ __Update 06 Oct 2020__: Saat ini ada __114 tips__ yang dibagi menjadi 14 bagian.
 
 ### Eloquent where date methods
 
-Pada Eloquent, periksa tanggal dengan fungsi `whereDay()`, `whereMonth()`, `whereYear()`, `whereDate()` dan `whereTime()`.
+Di Eloquent, Anda dapat memeriksa tanggal dengan fungsi `whereDay()`, `whereMonth()`, `whereYear()`, `whereDate()` dan `whereTime()`.
 
 ```php
 $products = Product::whereDate('created_at', '2018-01-31')->get();
@@ -71,7 +71,7 @@ $products = Product::whereTime('created_at', '=', '14:13:58')->get();
 
 ### Increments and decrements
 
-ika Anda ingin menambahkan beberapa kolom DB dalam beberapa tabel, cukup gunakan fungsi `increment()`. Anda dapat tidak hanya dengan increment 1, tetapi juga dengan beberapa angka, seperti 50.
+Jika Anda ingin menambahkan beberapa kolom DB dalam beberapa tabel, cukup gunakan fungsi `increment()`. Anda dapat tidak hanya dengan increment 1, tetapi juga dengan beberapa angka, seperti 50.
 
 ```php
 Post::find($post_id)->increment('view_count');
@@ -184,8 +184,8 @@ $lastUpdatedUser = User::latest('updated_at')->first();
 
 ### Automatic Column Value When Creating Records
 
-If you want to generate some DB column value when creating record, add it to model's `boot()` method.
-For example, if you have a field "position" and want to assign the next available position to the new record (like `Country::max('position') + 1)`, do this:
+Jika Anda ingin menghasilkan beberapa nilai kolom DB saat membuat record, tambahkan metode `boot()` ke model.
+Misalnya, jika Anda memiliki kolom "position" dan ingin menetapkan posisi berikutnya yang tersedia ke record baru (seperti `Country::max('position') + 1)`, lakukan ini:
 
 ```php
 class Country extends Model {
@@ -202,7 +202,7 @@ class Country extends Model {
 
 ### DB Raw Query Calculations Run Faster
 
-Use SQL raw queries like `whereRaw()` method, to make some DB-specific calculations directly in query, and not in Laravel, usually the result will be faster. Like, if you want to get users that were active 30+ days after their registration, here's the code:
+Gunakan SQL raw querie seperti metode `whereRaw()`, untuk membuat beberapa penghitungan khusus DB secara langsung dalam kueri, dan bukan di Laravel, biasanya hasilnya akan lebih cepat. Misalnya, jika Anda ingin mendapatkan pengguna yang aktif 30+ hari setelah pendaftaran, berikut kodenya:
 
 ```php
 User::where('active', 1)
@@ -212,7 +212,7 @@ User::where('active', 1)
 
 ### More than One Scope
 
-You can combine and chain Query Scopes in Eloquent, using more than one scope in a query.
+Anda bisa menggabungkan dan merangkai Query Scopes di Eloquent, menggunakan lebih dari satu ruang lingkup dalam sebuah kueri.
 
 Model:
 ```php
@@ -232,7 +232,7 @@ $users = User::registeredWithinDays(30)->active()->get();
 
 ### No Need to Convert Carbon
 
-If you're performing `whereDate()` and check today's records, you can use Carbon's `now()` and it will automatically be transformed to date. No need to do `->toDateString()`.
+Jika Anda menjalankan `whereDate()` dan memeriksa catatan hari ini, Anda dapat menggunakan Carbon's `now()` dan itu akan secara otomatis diubah ke waktu saat ini. Tidak perlu melakukan `->toDateString()`.
 
 ```php
 // Instead of
@@ -243,7 +243,7 @@ $todayUsers = User::whereDate('created_at', now())->get();
 
 ### Grouping by First Letter
 
-You can group Eloquent results by any custom condition, here's how to group by first letter of user's name:
+Anda dapat mengelompokkan hasil Eloquent menurut kondisi kustom apa pun, berikut cara mengelompokkan berdasarkan huruf pertama nama pengguna:
 ```php
 $users = User::all()->groupBy(function($item) {
     return $item->name[0];
@@ -252,7 +252,7 @@ $users = User::all()->groupBy(function($item) {
 
 ### Never Update the Column
 
-If you have DB column which you want to be set only once and never updated again, you can set that restriction on Eloquent Model, with a mutator:
+Jika Anda memiliki kolom DB yang ingin Anda atur hanya sekali dan tidak pernah diperbarui lagi, Anda dapat mengatur batasan itu pada Eloquent Model, dengan mutator:
 ```php
 class User extends Model
 {
@@ -269,7 +269,7 @@ class User extends Model
 
 ### Find Many
 
-Eloquent method `find()` may accept multiple parameters, and then it returns a Collection of all records found, not just one Model:
+Metode Eloquent `find()` dapat menerima beberapa parameter, dan kemudian mengembalikan record semua Collection yang ditemukan, bukan hanya satu Model:
 ```php
 // Will return Eloquent Model
 $user = User::find(1);
@@ -279,7 +279,7 @@ $users = User::find([1,2,3]);
 
 ### Use UUID instead of auto-increment
 
-You don't want to use auto incrementing ID in your model?
+Anda tidak ingin menggunakan auto incrementing ID dalam model Anda?
 
 Migration:
 ```php
@@ -314,7 +314,7 @@ class User extends Model
 
 ### Sub-selects in Laravel Way
 
-From Laravel 6, you can use addSelect() in Eloquent statement, and do some calculation to that added column.
+Sejak Laravel 6, Anda dapat menggunakan `addSelect()` dalam Eloquent statement, dan melakukan beberapa perhitungan pada kolom yang ditambahkan tersebut.
 
 ```php
 return Destination::addSelect(['last_flight' => Flight::select('name')
@@ -326,7 +326,7 @@ return Destination::addSelect(['last_flight' => Flight::select('name')
 
 ### Hide Some Columns
 
-When doing Eloquent query, if you want to hide specific field from being returned, one of the quickest ways is to add `->makeHidden()` on Collection result.
+Saat menggunakan Eloquent query, jika Anda ingin menyembunyikan field tertentu agar tidak dikembalikan, salah satu cara tercepat adalah dengan menambahkan `->makeHidden()` pada hasil Collection.
 
 ```php
 $users = User::all()->makeHidden(['email_verified_at', 'deleted_at']);
@@ -334,7 +334,7 @@ $users = User::all()->makeHidden(['email_verified_at', 'deleted_at']);
 
 ### Exact DB Error
 
-If you want to catch Eloquent Query exceptions, use specific `QueryException` instead default Exception class, and you will be able to get the exact SQL code of the error.
+Jika Anda ingin menangkap Eloquent Query exceptions, gunakan `QueryException` tertentu sebagai pengganti kelas Exception default, dan Anda akan bisa mendapatkan kode SQL yang tepat dari kesalahan tersebut.
 
 ```php
 try {
@@ -348,7 +348,8 @@ try {
 
 ### Soft-Deletes with Query Builder
 
-Don't forget that soft-deletes will exclude entries when you use Eloquent, but won't work if you use Query Builder.
+<!-- Don't forget that soft-deletes will exclude entries when you use Eloquent, but won't work if you use Query Builder. -->
+Jangan lupa bahwa soft-delete akan mengecualikan entri saat Anda menggunakan Eloquent, tetapi tidak akan berfungsi jika Anda menggunakan Query Builder.
 
 ```php
 // Will exclude soft-deleted entries
@@ -360,7 +361,8 @@ $users = DB::table('users')->get();
 
 ### Good Old SQL Query
 
-If you need to execute a simple SQL query, without getting any results - like changing something in DB schema, you can just do `DB::statement()`.
+<!-- If you need to execute a simple SQL query, without getting any results - like changing something in DB schema, you can just do `DB::statement()`. -->
+Jika Anda perlu menjalankan kueri SQL sederhana, tanpa mendapatkan hasil apa pun - seperti mengubah sesuatu dalam skema DB, Anda cukup menggunakan `DB::statement()`.
 
 ```
 DB::statement('DROP TABLE users');
@@ -369,9 +371,12 @@ DB::statement('ALTER TABLE projects AUTO_INCREMENT=123');
 
 ### Use DB Transactions
 
-If you have two DB operations performed, and second may get an error, then you should rollback the first one, right? 
+<!-- If you have two DB operations performed, and second may get an error, then you should rollback the first one, right? 
 
-For that, I suggest to use DB Transactions, it's really easy in Laravel:
+For that, I suggest to use DB Transactions, it's really easy in Laravel: -->
+Jika Anda melakukan dua operasi DB, dan yang kedua mungkin mengalami error, maka Anda harus mengembalikan yang pertama kan?
+
+Untuk itu Saya menyarankan untuk menggunakan DB Transactions, caranya gampang banget di Laravel:
 
 ```php
 DB::transaction(function () {
@@ -383,7 +388,8 @@ DB::transaction(function () {
 
 ### Update or Create
 
-If you need to check if the record exists, and then update it, or create a new record otherwise, you can do it in one sentence - use Eloquent method `updateOrCreate()`:
+<!-- If you need to check if the record exists, and then update it, or create a new record otherwise, you can do it in one sentence - use Eloquent method `updateOrCreate()`: -->
+Jika Anda perlu memeriksa apakah record tersebut ada, lalu memperbaruinya, atau membuat record baru, Anda dapat melakukannya dalam satu langkah - gunakan metode Eloquent `updateOrCreate()`:
 
 ```php
 // Instead of this
@@ -411,7 +417,8 @@ $flight = Flight::updateOrCreate(
 
 Tip given by [@pratiksh404](https://github.com/pratiksh404)
 
-If you have cache key like `posts` that gives collection, and you want to forget that cache key on new store or update, you can call static `saving` function on your model:
+<!-- If you have cache key like `posts` that gives collection, and you want to forget that cache key on new store or update, you can call static `saving` function on your model: -->
+Jika Anda memiliki cache key seperti `posts` yang memberikan collection, dan Anda ingin menghapus cache key itu pada saat melakukan new store or update, Anda dapat menggunakan static `saving` function pada model Anda:
 
 ```php
 class Post extends Model
